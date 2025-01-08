@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaigns - Social Cause Fundraising Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Raise Funds and Resources for Social Causes</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="campaigns.html">Campaigns</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="campaigns">
+        <h2>Current Campaigns</h2>
+        <div class="campaign-list" id="campaign-list">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Social Cause Fundraising Platform. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simulated Campaign Data
+        const campaigns = [
+            { title: "Health Initiative for Children", description: "Help us provide essential healthcare to children in underdeveloped regions. Together, we can save lives!", goal: 10000, raised: 6000, category: "health" },
+            { title: "Education for All", description: "Help provide education to children in remote areas. Donate now and make a difference in a child's future!", goal: 15000, raised: 6000, category: "education" },
+            { title: "Clean Water Project", description: "Provide clean drinking water to villages in Africa. Every donation counts!", goal: 12000, raised: 4000, category: "environment" }
+        ];
+
+        // Function to render campaigns dynamically
+        function renderCampaigns(campaigns) {
+            const campaignList = document.getElementById('campaign-list');
+            campaignList.innerHTML = '';  // Clear existing campaigns
+            campaigns.forEach(campaign => {
+                const progress = (campaign.raised / campaign.goal) * 100;
+                const campaignCard = `
+                    <div class="campaign-card">
+                        <h3>${campaign.title}</h3>
+                        <p>${campaign.description}</p>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: ${progress}%"></div>
+                        </div>
+                        <p>Goal: $${campaign.goal} | Raised: $${campaign.raised}</p>
+                        <a href="#" class="button" onclick="openPaymentModal('${campaign.title}', ${campaign.goal - campaign.raised})">Donate Now</a>
+                    </div>
+                `;
+                campaignList.innerHTML += campaignCard;
+            });
+        }
+
+        // Function to open payment modal
+        function openPaymentModal(campaignTitle, amountDue) {
+            const paymentModal = document.createElement('div');
+            paymentModal.classList.add('payment-modal');
+            paymentModal.innerHTML = `
+                <div class="modal-content">
+                    <h2>Donate to "${campaignTitle}"</h2>
+                    <p>Amount Due: $${amountDue}</p>
+                    <form id="payment-form">
+                        <label for="card-number">Card Number:</label>
+                        <input type="text" id="card-number" name="card-number" required>
+                        <label for="expiry-date">Expiry Date:</label>
+                        <input type="text" id="expiry-date" name="expiry-date" required>
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv" required>
+                        <button type="submit" class="button">Pay Now</button>
+                    </form>
+                    <button class="button" onclick="closePaymentModal()">Cancel</button>
+                </div>
+            `;
+            document.body.appendChild(paymentModal);
+        }
+
+        // Function to close payment modal
+        function closePaymentModal() {
+            const paymentModal = document.querySelector('.payment-modal');
+            if (paymentModal) {
+                paymentModal.remove();
+            }
+        }
+
+        // Initially render all campaigns
+        renderCampaigns(campaigns);
+    </script>
+</body>
+</html>
