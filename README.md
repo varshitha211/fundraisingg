@@ -32,7 +32,7 @@ fundraising/
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/fundraising.git
+  git clone https://github.com/varshitha211/fundraising.git
 
 2. Navigate to the project folder:
 
